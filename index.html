@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clicker Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(#111, #333);
+      color: white;
+      text-align: center;
+    }
+    header, main, footer {
+      padding: 1em;
+    }
+    #clickButton {
+      font-size: 1.5em;
+      padding: 1em;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    #clickButton:active {
+      transform: scale(0.95);
+    }
+    .upgrade {
+      margin: 1em auto;
+      padding: 1em;
+      max-width: 300px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 10px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .upgrade.available {
+      opacity: 1;
+      pointer-events: auto;
+      background-color: #2a2a2a;
+      box-shadow: 0 0 10px #0f0;
+    }
+    .upgrade.level25 {
+      background-color: #1a1a2e;
+      border: 2px solid gold;
+    }
+    .upgrade.level50 {
+      background-color: #1e2e1a;
+      border: 2px solid lime;
+    }
+    .upgrade.level75 {
+      background-color: #2e1a1a;
+      border: 2px solid red;
+    }
+    .upgrade.level100 {
+      background-color: #1a1a1a;
+      border: 3px solid cyan;
+    }
+    .hidden {
+      display: none;
+    }
+    .float {
+      position: absolute;
+      animation: floatUp 1s ease-out forwards;
+      color: yellow;
+      font-size: 1em;
+    }
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-50px); }
+    }
+    .pulse {
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+        0% {transform: scale(1);}
+        50% { transform: scale(1.05);}
+        100% {transform: scale(1);}
+    }
+    #upgradeMenuBtn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #222;
+      color: white;
+      border: 2px solid #fff;
+      padding: 0.5em 1em;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #upgradeNotification {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      color: white;
+      font-size: 16px;
+      border-radius: 50%;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    #upgradesContainer {
+      display: none;
+    }
+    @media(max-width: 600px) {
+      #clickButton {
+        width: 90%;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Clicker Game</h1>
+    <div id="tutorial" class="upgrade pulse">Welcome! Click the button to earn points. Spend points to buy upgrades.</div>
+  </header>
+  <main>
+    <div>
+      <button id="clickButton">Click Me!</button>
+    </div>
+    <p>Points: <span id="points">0</span></p>
+    <p>Time: <span id="timer">0s</span></p>
+
+    <div>
+      <button id="upgradeMenuBtn">
+        Upgrades
+        <span id="upgradeNotification">!</span>
+      </button>
+    </div>
+
+    <div id="upgradesContainer">
+      <div id="upgrades"></div>
+    </div>
+
+    <div class="upgrade">
+      <p>Reset Progress</p>
+      <button onclick="resetGame()">Reset</button>
+    </div>
+    <div class="upgrade">
+      <p>Theme Selector</p>
+      <select id="themeSelector" onchange="changeTheme(this.value)">
+        <option value="default">Default</option>
+        <option value="dark">Dark</option>
+        <option value="neon">Neon</option>
+        <option value="sunset">Sunset</option>
+      </select>
+    </div>
+  </main>
+  <footer>
+    <p id="easterEgg" class="hidden">🎉 You found the secret! 🎉</p>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
